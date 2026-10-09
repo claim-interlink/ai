@@ -14,8 +14,8 @@
 
         /* Floating Gift Box Animation */
         @keyframes floatGlow {
-            0%, 100% { transform: translateY(0px) scale(1); filter: drop-shadow(0 10px 15px rgba(108, 92, 231, 0.2)); }
-            50% { transform: translateY(-10px) scale(1.04); filter: drop-shadow(0 20px 25px rgba(108, 92, 231, 0.4)); }
+            0%, 100% { transform: translateY(0px) scale(1); filter: drop-shadow(0 8px 12px rgba(108, 92, 231, 0.25)); }
+            50% { transform: translateY(-8px) scale(1.03); filter: drop-shadow(0 16px 20px rgba(108, 92, 231, 0.4)); }
         }
         .animate-float-glow {
             animation: floatGlow 2.5s ease-in-out infinite;
@@ -25,24 +25,24 @@
         @keyframes openExplosion {
             0% { transform: scale(1) rotate(0deg); }
             20% { transform: scale(0.85) rotate(-12deg); }
-            40% { transform: scale(1.25) rotate(12deg); }
+            40% { transform: scale(1.2) rotate(12deg); }
             60% { transform: scale(0.9) rotate(-6deg); }
-            80% { transform: scale(1.35) rotate(6deg); }
+            80% { transform: scale(1.25) rotate(6deg); }
             100% { transform: scale(1) rotate(0deg); }
         }
         .animate-explode {
             animation: openExplosion 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        /* Continuous Feed Masking */
+        /* Feed Masking */
         .feed-container {
-            mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
-            -webkit-mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, black 4%, black 96%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 4%, black 96%, transparent);
         }
 
-        /* Fast Slide In Animation for Feed */
+        /* Slide In Animation */
         @keyframes slideInFast {
-            from { opacity: 0; transform: translateY(-12px); }
+            from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .animate-slide-in {
@@ -56,35 +56,47 @@
     <div id="stepInitial" class="flex-1 flex flex-col justify-between space-y-2 py-1">
         
         <!-- Header -->
-        <div class="flex items-center justify-between py-1.5 border-b border-gray-200">
+        <div class="flex items-center justify-between py-1 border-b border-gray-200">
             <a href="mine.html" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-700 font-bold text-base">‹</a>
-            <h1 class="text-sm font-black text-gray-900 uppercase tracking-widest">INTERLINK REWARD POOL</h1>
+            <h1 class="text-xs font-black text-gray-900 uppercase tracking-widest">INTERLINK REWARD POOL</h1>
             <div class="w-8"></div>
         </div>
 
-        <!-- Extra Large Touch-Triggered Gift Box Area -->
+        <!-- Compacted Touch-Triggered Gift Box Area -->
         <div id="giftCardArea" 
              ontouchstart="openGiftBox(event)" 
              onclick="openGiftBox(event)" 
-             class="purple-bg-light w-full flex-1 flex flex-col items-center justify-center p-5 rounded-3xl text-center space-y-3 border-2 border-purple-300 shadow-xl relative overflow-hidden cursor-pointer active:scale-98 transition transform my-1">
+             class="purple-bg-light w-full py-4 px-4 rounded-3xl text-center space-y-2 border-2 border-purple-300 shadow-md relative overflow-hidden cursor-pointer active:scale-98 transition transform">
             
-            <div class="bg-purple-600 text-white text-[10px] font-black uppercase px-4 py-1 rounded-full inline-block tracking-widest shadow-md">
-                TOUCH ANYWHERE ON BOX TO OPEN
+            <!-- Written Board Header -->
+            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[10px] font-black uppercase px-4 py-1.5 rounded-full inline-block tracking-wider shadow-md">
+                ✨ CLAIM UP TO 10,000 ITL BONUS ✨
             </div>
 
-            <!-- Huge Gift Box Display -->
+            <!-- Balanced Gift Box Display -->
             <div id="giftContainer" class="py-1">
-                <div id="giftIcon" class="text-9xl animate-float-glow">🎁</div>
+                <div id="giftIcon" class="text-7xl animate-float-glow">🎁</div>
             </div>
 
             <div class="space-y-0.5">
-                <h2 class="text-2xl font-black text-gray-900 leading-tight">TAP TO UNLOCK ITL REWARD</h2>
-                <p class="text-[11px] font-extrabold purple-text uppercase tracking-wider">ALLOCATION RANGE: 500 – 10,000,000 ITL</p>
+                <h2 class="text-lg font-black text-gray-900 leading-tight">TAP BOX TO UNLOCK REWARD</h2>
+                <p class="text-[10px] font-extrabold purple-text uppercase tracking-wider">SPECIAL LIMITED AIRDROP EVENT</p>
             </div>
         </div>
 
-        <!-- Dynamic Activity Statistics Bar -->
-        <div class="bg-white p-3 rounded-2xl border border-gray-200 shadow-sm grid grid-cols-2 gap-2 text-center">
+        <!-- NEW UNIQUE FEATURE: Live Event Timer & Gas Multiplier Banner -->
+        <div class="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-2 rounded-2xl shadow-sm flex items-center justify-between text-xs font-extrabold">
+            <div class="flex items-center space-x-1.5">
+                <span class="animate-bounce text-sm">⚡</span>
+                <span class="uppercase tracking-wider text-[11px]">2X Boost Active</span>
+            </div>
+            <div class="bg-black/20 px-2.5 py-0.5 rounded-lg text-[11px] font-mono tracking-widest" id="countdownTimer">
+                04:59
+            </div>
+        </div>
+
+        <!-- Statistics Bar -->
+        <div class="bg-white p-2.5 rounded-2xl border border-gray-200 shadow-sm grid grid-cols-2 gap-2 text-center">
             <div class="border-r border-gray-100 pr-1">
                 <p class="text-[9px] uppercase font-bold text-gray-400">USERS CURRENTLY CLAIMING</p>
                 <p class="text-base font-black text-emerald-600 flex items-center justify-center gap-1">
@@ -98,8 +110,8 @@
             </div>
         </div>
 
-        <!-- Fast-Updating Stream Feed -->
-        <div class="space-y-1">
+        <!-- Expanded Live Streaming Feed -->
+        <div class="space-y-1 flex-1 flex flex-col justify-end">
             <div class="flex justify-between items-center px-1">
                 <h3 class="text-[11px] font-black text-gray-800 uppercase tracking-wider">LIVE NETWORK CLAIMS</h3>
                 <span class="text-[9px] font-black text-purple-600 animate-pulse flex items-center gap-1">
@@ -107,7 +119,7 @@
                 </span>
             </div>
             
-            <div class="feed-container bg-white rounded-2xl p-2.5 border border-gray-200 shadow-inner h-44 overflow-hidden relative">
+            <div class="feed-container bg-white rounded-2xl p-2 border border-gray-200 shadow-inner h-52 overflow-hidden relative">
                 <div id="liveClaimFeed" class="space-y-2">
                     <!-- Dynamically injected fast rows -->
                 </div>
@@ -201,21 +213,22 @@
         window.onload = function() {
             initLiveFeed();
             startContinuousScroll();
+            startTimer();
         };
 
-        // Weighted Probability: Hard to get high amounts
+        // Weighted Probability: 1% chance for 10,000 ITL
         function generateWeightedRandomReward() {
-            const roll = Math.random() * 100; // 0 - 100
+            const roll = Math.random() * 100;
 
-            if (roll < 90) {
-                // 90% chance: Small rewards (500 to 2,500 ITL)
-                return Math.floor(Math.random() * (2500 - 500 + 1)) + 500;
-            } else if (roll < 98) {
-                // 8% chance: Medium rewards (2,501 to 5,000 ITL)
-                return Math.floor(Math.random() * (5000 - 2501 + 1)) + 2501;
+            if (roll < 92) {
+                // 92% chance: 500 to 2,000 ITL
+                return Math.floor(Math.random() * (2000 - 500 + 1)) + 500;
+            } else if (roll < 99) {
+                // 7% chance: 2,001 to 4,500 ITL
+                return Math.floor(Math.random() * (4500 - 2001 + 1)) + 2001;
             } else {
-                // 2% Rare chance: High rewards (5,001 to 10,000,000 ITL)
-                return Math.floor(Math.random() * (10000000 - 5001 + 1)) + 5001;
+                // 1% Ultra Rare chance for 10,000 ITL jackpot!
+                return 10000;
             }
         }
 
@@ -230,7 +243,6 @@
 
             wonAmount = generateWeightedRandomReward();
 
-            // Trigger Confetti Burst
             if (typeof confetti === 'function') {
                 confetti({
                     particleCount: 80,
@@ -336,17 +348,15 @@
             `;
             feedContainer.prepend(item);
 
-            if (feedContainer.children.length > 7) {
+            if (feedContainer.children.length > 8) {
                 feedContainer.removeChild(feedContainer.lastChild);
             }
         }
 
-        // Fast-updating interval (0.8s)
         function startContinuousScroll() {
             setInterval(() => {
                 appendRandomUserToFeed();
                 
-                // Real-time counter updates
                 const activeEl = document.getElementById('activeUsersCount');
                 let currentActive = parseInt(activeEl.innerText.replace(/,/g, ''));
                 currentActive += Math.floor(Math.random() * 9) - 4;
@@ -357,6 +367,26 @@
                 currentTokens += Math.floor(Math.random() * 1200) + 300;
                 tokensEl.innerText = currentTokens.toLocaleString() + " ITL";
             }, 800);
+        }
+
+        // Live Countdown Clock
+        function startTimer() {
+            let duration = 299; // 4 minutes 59 seconds
+            const timerEl = document.getElementById('countdownTimer');
+            
+            setInterval(() => {
+                let minutes = Math.floor(duration / 60);
+                let seconds = duration % 60;
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                timerEl.innerText = minutes + ":" + seconds;
+
+                if (--duration < 0) {
+                    duration = 299; // Loop back
+                }
+            }, 1000);
         }
     </script>
 </body>
