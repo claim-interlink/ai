@@ -148,17 +148,31 @@
             ⚡ Zero-Gas Fee Network Node Dispatch Enabled
         </div>
 
-        <!-- INTERLINK INTRO (Fills the gap outside the box) -->
-<div class="interlink-intro" id="interlinkIntro">
-    <div class="interlink-intro-content">
+        <!-- ================================
+     INTERLINK OPENING INTRO
+     ================================ -->
+<div id="interlinkIntro" class="interlink-intro">
+
+    <div class="interlink-intro-inner">
+
         <div class="interlink-intro-logo">
-            <img src="https://raw.githubusercontent.com/claim-interlink/ai/refs/heads/main/interlink.png" alt="Interlink">
+            <!-- USE THE SAME LOGO FILE AS YOUR EXISTING SMALL LOGO -->
+            <img src="https://raw.githubusercontent.com/claim-interlink/ai/refs/heads/main/interlink.png" alt="InterLink">
         </div>
-        <div class="interlink-intro-text">
-            <h1>WELCOME TO<br>INTERLINK NETWORK</h1>
-            <p>Connecting you to the next generation of digital experiences.</p>
+
+        <div class="interlink-intro-message">
+            <div class="interlink-intro-line"></div>
+
+            <h2>WELCOME TO<br>INTERLINK NETWORK</h2>
+
+            <p>
+                Connecting you to the next generation
+                of digital experiences.
+            </p>
         </div>
+
     </div>
+
 </div>
         
         <!-- Expanded Live Feed View -->
@@ -463,91 +477,334 @@
                 }
             }, 1000);
         }
-            /* ================================
-   INTERLINK INTRO (CORRECTED CENTER-TO-LEFT)
-   ================================ */
+         /* =====================================================
+   INTERLINK OPENING INTRO
+   Independent from the gift-box animation
+   ===================================================== */
+
 .interlink-intro {
-    width: 100%;
-    height: 70px;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    background: #f9f8ff;
+
     overflow: hidden;
-    background: transparent;
-    position: relative;
-    margin: 6px 0;
-    pointer-events: none; /* Allows clicks to pass through safely */
+
+    pointer-events: none;
+
+    animation: interlinkIntroExit 0.7s ease forwards;
+    animation-delay: 3.6s;
 }
 
-.interlink-intro-content {
-    width: 100%;
+
+/* Main intro content */
+
+.interlink-intro-inner {
+    width: min(760px, 90vw);
+
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+
+    gap: 28px;
+
     position: relative;
 }
 
-/* Logo starts centered with side gaps, then shifts left */
+
+/* =====================================================
+   LOGO
+   ===================================================== */
+
 .interlink-intro-logo {
-    width: 48px;
-    height: 48px;
-    flex-shrink: 0;
+    width: 125px;
+    height: 125px;
+
+    flex: 0 0 125px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: interlinkLogoMove 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+
+    animation: interlinkLogoSlide 2.7s
+        cubic-bezier(0.65, 0, 0.35, 1)
+        forwards;
 }
+
 
 .interlink-intro-logo img {
-    width: 48px;
-    height: 48px;
+    width: 115px;
+    height: 115px;
+
     object-fit: contain;
-    border-radius: 12px;
-    filter: drop-shadow(0 4px 10px rgba(105, 55, 220, 0.25));
-    animation: interlinkLogoGlow 2.2s ease-in-out;
+
+    display: block;
+
+    filter:
+        drop-shadow(0 8px 18px rgba(108, 92, 231, 0.25));
+
+    animation: interlinkLogoAppear 0.9s ease-out forwards;
 }
 
-/* Text slides in on the right */
-.interlink-intro-text {
-    max-width: 230px;
+
+/* =====================================================
+   TEXT
+   ===================================================== */
+
+.interlink-intro-message {
+    width: 330px;
+
     opacity: 0;
-    animation: interlinkTextAppear 1s ease-out 1s forwards;
+
+    transform: translateX(25px);
+
+    animation:
+        interlinkTextAppear 0.9s
+        ease-out
+        1.35s
+        forwards;
 }
 
-.interlink-intro-text h1 {
-    margin: 0 0 2px;
-    font-size: 12px;
-    line-height: 1.1;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    color: #20202a;
-}
 
-.interlink-intro-text p {
+.interlink-intro-message h2 {
     margin: 0;
-    font-size: 9px;
-    line-height: 1.3;
+
+    color: #20202a;
+
+    font-size: clamp(20px, 5vw, 32px);
+
+    line-height: 1.08;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.interlink-intro-message p {
+    margin: 9px 0 0;
+
     color: #77718a;
+
+    font-size: 12px;
+
+    line-height: 1.55;
+
+    font-weight: 600;
 }
 
-/* Animation: Starts shifted right (centered appearance) and slides left */
-@keyframes interlinkLogoMove {
-    0% { transform: translateX(85px) scale(1.15); }
-    30% { transform: translateX(85px) scale(1.15); }
-    100% { transform: translateX(0) scale(1); }
+
+/* Small purple line */
+
+.interlink-intro-line {
+    width: 38px;
+    height: 4px;
+
+    border-radius: 20px;
+
+    background: linear-gradient(
+        90deg,
+        #6c5ce7,
+        #8b5cf6
+    );
+
+    margin-bottom: 10px;
+
+    opacity: 0;
+
+    animation:
+        interlinkLineAppear
+        0.5s
+        ease-out
+        1.25s
+        forwards;
 }
 
-@keyframes interlinkLogoGlow {
-    0% { opacity: 0; transform: scale(0.8); }
-    30% { opacity: 1; transform: scale(1.15); }
-    100% { opacity: 1; transform: scale(1); }
+
+/* =====================================================
+   LOGO APPEARS
+   ===================================================== */
+
+@keyframes interlinkLogoAppear {
+
+    0% {
+        opacity: 0;
+        transform: scale(0.55);
+    }
+
+    60% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
+
+
+/* =====================================================
+   LOGO MOVES LEFT
+   ===================================================== */
+
+@keyframes interlinkLogoSlide {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    32% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-18px);
+    }
+}
+
+
+/* =====================================================
+   TEXT ENTERS
+   ===================================================== */
 
 @keyframes interlinkTextAppear {
-    0% { opacity: 0; transform: translateX(15px); }
-    100% { opacity: 1; transform: translateX(0); }
+
+    0% {
+        opacity: 0;
+        transform: translateX(25px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
+
+
+/* =====================================================
+   PURPLE LINE
+   ===================================================== */
+
+@keyframes interlinkLineAppear {
+
+    0% {
+        opacity: 0;
+        transform: scaleX(0);
+        transform-origin: left;
+    }
+
+    100% {
+        opacity: 1;
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+}
+
+
+/* =====================================================
+   INTRO DISAPPEARS
+   ===================================================== */
+
+@keyframes interlinkIntroExit {
+
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    85% {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    .interlink-intro-inner {
+        width: 92vw;
+        gap: 14px;
+    }
+
+    .interlink-intro-logo {
+        width: 92px;
+        height: 92px;
+
+        flex-basis: 92px;
+    }
+
+    .interlink-intro-logo img {
+        width: 84px;
+        height: 84px;
+    }
+
+    .interlink-intro-message {
+        width: 190px;
+    }
+
+    .interlink-intro-message h2 {
+        font-size: 19px;
+    }
+
+    .interlink-intro-message p {
+        font-size: 10px;
+    }
+
+    .interlink-intro-line {
+        width: 28px;
+        height: 3px;
+    }
+}
+
+
+/* =====================================================
+   VERY SMALL PHONES
+   ===================================================== */
+
+@media (max-width: 360px) {
+
+    .interlink-intro-inner {
+        gap: 9px;
+    }
+
+    .interlink-intro-logo {
+        width: 75px;
+        height: 75px;
+        flex-basis: 75px;
+    }
+
+    .interlink-intro-logo img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .interlink-intro-message {
+        width: 175px;
+    }
+
+    .interlink-intro-message h2 {
+        font-size: 17px;
+    }
+
+    .interlink-intro-message p {
+        font-size: 9px;
+    }
+    }
     </script>
 </body>
 </html>
