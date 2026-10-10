@@ -463,8 +463,8 @@
                 }
             }, 1000);
         }
-        /* ================================
-   INTERLINK INTRO (CENTER-TO-LEFT ANIMATION)
+            /* ================================
+   INTERLINK INTRO (CORRECTED CENTER-TO-LEFT)
    ================================ */
 .interlink-intro {
     width: 100%;
@@ -476,18 +476,19 @@
     background: transparent;
     position: relative;
     margin: 6px 0;
+    pointer-events: none; /* Allows clicks to pass through safely */
 }
 
 .interlink-intro-content {
-    width: min(900px, 92%);
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 12px;
     position: relative;
 }
 
-/* Logo starts centered, then moves to the left */
+/* Logo starts centered with side gaps, then shifts left */
 .interlink-intro-logo {
     width: 48px;
     height: 48px;
@@ -495,7 +496,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: interlinkLogoMove 2.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation: interlinkLogoMove 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .interlink-intro-logo img {
@@ -504,19 +505,19 @@
     object-fit: contain;
     border-radius: 12px;
     filter: drop-shadow(0 4px 10px rgba(105, 55, 220, 0.25));
-    animation: interlinkLogoGlow 2.4s ease-in-out;
+    animation: interlinkLogoGlow 2.2s ease-in-out;
 }
 
-/* Text slides in on the right after logo shifts */
+/* Text slides in on the right */
 .interlink-intro-text {
-    max-width: 240px;
+    max-width: 230px;
     opacity: 0;
-    animation: interlinkTextAppear 1.2s ease-out 1.15s forwards;
+    animation: interlinkTextAppear 1s ease-out 1s forwards;
 }
 
 .interlink-intro-text h1 {
     margin: 0 0 2px;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.1;
     font-weight: 800;
     letter-spacing: 0.5px;
@@ -525,26 +526,26 @@
 
 .interlink-intro-text p {
     margin: 0;
-    font-size: 10px;
+    font-size: 9px;
     line-height: 1.3;
     color: #77718a;
 }
 
-/* Animation Keyframes: Starts centered, shifts left */
+/* Animation: Starts shifted right (centered appearance) and slides left */
 @keyframes interlinkLogoMove {
-    0% { transform: translateX(65px) scale(1.1); }
-    30% { transform: translateX(65px) scale(1.1); }
+    0% { transform: translateX(85px) scale(1.15); }
+    30% { transform: translateX(85px) scale(1.15); }
     100% { transform: translateX(0) scale(1); }
 }
 
 @keyframes interlinkLogoGlow {
     0% { opacity: 0; transform: scale(0.8); }
-    30% { opacity: 1; transform: scale(1.1); }
+    30% { opacity: 1; transform: scale(1.15); }
     100% { opacity: 1; transform: scale(1); }
 }
 
 @keyframes interlinkTextAppear {
-    0% { opacity: 0; transform: translateX(20px); }
+    0% { opacity: 0; transform: translateX(15px); }
     100% { opacity: 1; transform: translateX(0); }
 }
     </script>
