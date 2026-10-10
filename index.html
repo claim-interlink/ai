@@ -333,11 +333,7 @@
                 document.getElementById('stepInitial').classList.add('hidden');
                 document.getElementById('stepRevealed').classList.remove('hidden');
                 
-                runCinematicRevealSequence(baseReward, finalReward);
-            }, 3000);
-        }
-
-        // Multi-step Timeline Animation Controller
+                        // Multi-step Timeline Animation Controller
         function runCinematicRevealSequence(base, final) {
             const baseStage = document.getElementById('revealStageBase');
             const baseText = document.getElementById('animatedBaseText');
@@ -350,10 +346,17 @@
             const btnStage = document.getElementById('revealStageButton');
             const btnLabel = document.getElementById('btnRewardLabel');
 
-            // [0.8s] Stage 2: Base amount container pops in with count-up effect
+            // Reset initial visibility states
+            baseStage.classList.remove('hidden');
+            baseStage.style.opacity = '1';
+            baseStage.style.transform = 'scale(1)';
+            
+            eqStage.classList.add('hidden');
+            finalStage.classList.add('hidden');
+            btnStage.classList.add('hidden');
+
+            // [0.8s] Stage 2: Base amount count-up
             setTimeout(() => {
-                baseStage.style.transform = 'scale(1)';
-                baseStage.style.opacity = '1';
                 animateValue(baseText, 0, base, 400, " ITL");
             }, 100);
 
